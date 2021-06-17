@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richsites</title>
+
+<style>
+
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    html, body {
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+       
+    }
+    body {
+        background-color: #312E81;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .title {
+        font-size: 3.75rem;
+        line-height: 1;
+        font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        color:#FBBF24;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .sub-title {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        margin-top: 1rem;
+        animation: bounce 1s infinite;
+    }
+
+    .ct-logo {
+        height: 2rem;
+
+    }
+
+   
+
+    @keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animationTimingFunction: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animationTimingFunction: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+</style>
+</head>
+<body>
+    <h1 class="title">Richsites</h1>
+    <div>
+        <img class="ct-logo" src="images/cord-travel-logo.png" />
+    </div>
+    <h2 class="sub-title">Coming soon...</h2>
+    
+</body>
+</html>

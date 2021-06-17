@@ -1,0 +1,86 @@
+http {
+
+     # Upstream Backend graphql api server :
+    upstream backend_api {
+        server ip-10-0-6-67:8080;
+    }
+
+    # Upstream client site frontend 
+    upstream frontend_clientsite {
+        server ip-10-0-6-67:3001;
+    }
+
+    # Upstream sitemanager frontend
+    upstream frontend_sitemanager {
+        server ip-10-0-6-67:3000;
+    }
+    server {
+        listen 80;
+        listen [::]:80;
+        location / {
+            root /www;
+            try_files $uri /index.html;
+        }
+       
+
+    }
+
+
+    # api.richsites.travel
+    server {
+        listen 80;
+        listen [::]:80;
+        server_name api.richsite.local;
+        location / {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-NginX-Proxy true;
+            
+            proxy_pass http://backend_api/;
+
+            proxy_set_header Host $http_host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_redirect off;
+        }
+    }
+    # app.richsites.travel
+    server {
+        listen 80;
+        listen [::]:80;
+        server_name app.richsite.local;
+        location / {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-NginX-Proxy true;
+            
+            proxy_pass http://frontend_sitemanager/;
+
+            proxy_set_header Host $http_host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_redirect off;
+        }
+    }
+
+    # <hotelname>.richsites.travel client sites
+    server {
+        listen 80;
+        listen [::]:80;
+        server_name *.richsite.local;
+        location / {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-NginX-Proxy true;
+            
+            proxy_pass http://frontend_clientsite/;
+
+            proxy_set_header Host $http_host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_redirect off;
+        }
+    }
+
+       
+
+}
+
+events {}
