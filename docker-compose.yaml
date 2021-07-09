@@ -8,3 +8,9 @@ services:
         volumes: 
             - ./nginx:/etc/nginx
             - ./www:/www
+    redis:
+      image: redis:6.0
+      volumes: 
+        - ./volume/redis/data:/data
+      ports: 
+        - "6379:6379"
