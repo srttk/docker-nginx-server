@@ -43,6 +43,15 @@ http {
             proxy_redirect off;
         }
     }
+
+
+    # www.*
+
+    server {
+
+        server_name www.richsite.local;
+        return 301 $scheme://richsite.local$request_uri;
+    }
     # app.richsites.travel
     server {
         listen 80;
